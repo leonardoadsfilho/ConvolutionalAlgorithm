@@ -18,7 +18,7 @@ def calculate_constant(n, m, num_clients_total, betas):
         if n == 0:
             constant_sum = 1
         elif m == 1:
-            constant_sum = betas[m-1][n]
+            constant_sum = betas[m-1][num_clients_total]
         else:
             for k in range(n+1):
                 constant_sum += betas[m-1][k] * calculate_constant(n - k, m - 1, num_clients_total, betas)
@@ -65,8 +65,9 @@ def calculate_gm_constants(m, n, constants, betas):
             else:
                 sum_gms = 0
 
-                for j in range(k):
+                for j in range(1, k+1):
                     sum_gms += betas[i][j] * constants[j][i]
+
                 gmn.append(constants[len(constants) - 1][len(constants[0]) - 1] - sum_gms)
 
         gm.append(gmn)
